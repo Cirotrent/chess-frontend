@@ -1,0 +1,111 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+
+      <div class="card shadow">
+        <div class="card-body">
+
+          <h3 class="text-center mb-4">Registrazione</h3>
+
+          <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+            <!-- Nome -->
+            <div class="mb-3">
+              <label class="form-label">Nome</label>
+              <input 
+                type="text"
+                name="nome"
+                class="form-control"
+                [(ngModel)]="user.nome"
+                required
+                #nome="ngModel"
+                [class.is-invalid]="nome.invalid && nome.touched"
+              >
+              <div class="invalid-feedback">
+                Inserisci il nome
+              </div>
+            </div>
+
+            <!-- Cognome -->
+            <div class="mb-3">
+              <label class="form-label">Cognome</label>
+              <input 
+                type="text"
+                name="cognome"
+                class="form-control"
+                [(ngModel)]="user.cognome"
+                required
+                #cognome="ngModel"
+                [class.is-invalid]="cognome.invalid && cognome.touched"
+              >
+              <div class="invalid-feedback">
+                Inserisci il cognome
+              </div>
+            </div>
+
+            <!-- Username -->
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input 
+                type="text"
+                name="username"
+                class="form-control"
+                [(ngModel)]="user.username"
+                required
+                #username="ngModel"
+                [class.is-invalid]="username.invalid && username.touched"
+              >
+              <div class="invalid-feedback">
+                Inserisci username
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input 
+                type="password"
+                name="password"
+                class="form-control"
+                [(ngModel)]="user.password"
+                required
+                minlength="4"
+                autocomplete="new-password"
+                #password="ngModel"
+                [class.is-invalid]="password.invalid && password.touched"
+              >
+              <div class="invalid-feedback">
+                Minimo 4 caratteri
+              </div>
+            </div>
+
+            <!-- Bottone -->
+            <div class="d-grid">
+              <button 
+                type="submit" 
+                class="btn btn-success"
+                [disabled]="registerForm.invalid"
+              >
+                Registrati
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Messaggi -->
+          <div class="mt-3 text-center">
+            <div *ngIf="success" class="alert alert-success">
+              {{ success }}
+            </div>
+
+            <div *ngIf="error" class="alert alert-danger">
+              {{ error }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="container mt-5">
+
+  <div class="text-center mb-4">
+    <h1>Chess Tournament Online</h1>
+  </div>
+
+  <!-- NON LOGGATO -->
+  <div *ngIf="!authService.isLoggedIn()" class="row justify-content-center">
+    
+    <div class="col-md-4">
+      <div class="card p-4 shadow">
+        <h3 class="text-center">Login</h3>
+
+        <a routerLink="/login" class="btn btn-primary w-100 mt-3">
+          Vai al Login
+        </a>
+
+        <hr>
+
+        <a routerLink="/register" class="btn btn-outline-secondary w-100">
+          Registrati
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LOGGATO -->
+  <div *ngIf="authService.isLoggedIn()" class="text-center">
+
+    <h3 class="mb-4">Benvenuto!</h3>
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+      
+      <a routerLink="/tornei" class="btn btn-success">
+        Lista Tornei
+      </a>
+
+      <a routerLink="/miei-tornei" class="btn btn-info">
+        I miei tornei
+      </a>
+
+      <a routerLink="/tornei/nuovo"
+         *ngIf="authService.hasRole('ORGANIZER')"
+         class="btn btn-warning">
+        Crea torneo
+      </a>
+
+      <button class="btn btn-danger" (click)="logout()">
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
