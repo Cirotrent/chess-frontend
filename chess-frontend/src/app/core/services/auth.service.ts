@@ -8,50 +8,47 @@ import { tap } from 'rxjs';
 export class AuthService {
 
   private baseUrl = 'http://localhost:9090/auth';
+  private TOKEN_KEY = 'token';
+  private USERNAME_KEY = 'username';
 
   constructor(private http: HttpClient) {}
 
   register(user: any) {
     return this.http.post(`${this.baseUrl}/register`, user, { responseType: 'text' });
   }
-  login(credentials: any) {
-    return this.http.post(`${this.baseUrl}/login`, credentials, { responseType: 'text' });
-  }
   // login(credentials: any) {
-  //   return this.http.post<any>(`${this.baseUrl}/login`, credentials).pipe(
-  //     tap(res => {
-  //       console.log
-  //       localStorage.setItem('token', res);
-  //       // localStorage.setItem('roles', JSON.stringify(res.roles));
-  //     })
-  //   );
+  //   return this.http.post(`${this.baseUrl}/login`, credentials, { responseType: 'text' });
   // }
-  // register(user: any) {
-  //   return this.http.post<any>(`${this.baseUrl}/register`, user);
-  //   // .pipe(
-  //   //   tap(res => {
-  //   //     localStorage.setItem(this.tokenKey, res.token);
-  //   //     localStorage.setItem(this.rolesKey, JSON.stringify(res.roles));
-  //   //   })
-  //   // );
-  // }
+  login(credentials: any) {
+    return this.http.post<any>(`${this.baseUrl}/login`, credentials).pipe(
+      tap(res => {
+        localStorage.setItem(this.TOKEN_KEY, res.token);
+        localStorage.setItem(this.USERNAME_KEY, res.username);
+        // localStorage.setItem('roles', JSON.stringify(res.roles));
+      })
+    );
+  }
 
   saveToken(token: string) {
-    localStorage.setItem('token', token);
+    localStorage.setItem(this.TOKEN_KEY, token);
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
  
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('roles');
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USERNAME_KEY);
+    // localStorage.removeItem('roles');
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem(this.TOKEN_KEY);
+  }
+  getUsername(): string | null {
+    return localStorage.getItem(this.USERNAME_KEY);
   }
 
   hasRole(role: string): boolean {

@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">ChessApp</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <!-- Mostra se utente NON loggato -->
+        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/register">Registrati</a>
+        </li>
+
+        <!-- Mostra se utente loggato -->
+        <li class="nav-item dropdown" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            {{ authService.getUsername() }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" routerLink="/profile">Profilo</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

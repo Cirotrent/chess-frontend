@@ -1,57 +1,18 @@
-<div class="container mt-5">
-
-  <div class="text-center mb-4">
-    <h1>Chess Tournament Online</h1>
-  </div>
-
-  <!-- NON LOGGATO -->
-  <div *ngIf="!authService.isLoggedIn()" class="row justify-content-center">
-    
-    <div class="col-md-4">
-      <div class="card p-4 shadow">
-        <h3 class="text-center">Login</h3>
-
-        <a routerLink="/login" class="btn btn-primary w-100 mt-3">
-          Vai al Login
-        </a>
-
-        <hr>
-
-        <a routerLink="/register" class="btn btn-outline-secondary w-100">
-          Registrati
-        </a>
-      </div>
+<div class="container mt-5 text-center">
+  <div *ngIf="authService.isLoggedIn(); else guest">
+    <h1>Benvenuto, {{ authService.getUsername() }}!</h1>
+    <p>Visualizza i tornei e le tue partite qui sotto.</p>
+    <div class="mt-4">
+      <a routerLink="/play/lista-tornei" class="btn btn-primary">Vai ai tornei</a>
     </div>
-
   </div>
 
-  <!-- LOGGATO -->
-  <div *ngIf="authService.isLoggedIn()" class="text-center">
-
-    <h3 class="mb-4">Benvenuto!</h3>
-
-    <div class="d-grid gap-2 col-6 mx-auto">
-      
-      <a routerLink="/tornei" class="btn btn-success">
-        Lista Tornei
-      </a>
-
-      <a routerLink="/miei-tornei" class="btn btn-info">
-        I miei tornei
-      </a>
-
-      <a routerLink="/tornei/nuovo"
-         *ngIf="authService.hasRole('ORGANIZER')"
-         class="btn btn-warning">
-        Crea torneo
-      </a>
-
-      <button class="btn btn-danger" (click)="logout()">
-        Logout
-      </button>
-
+  <ng-template #guest>
+    <h1>Benvenuto su ChessApp!</h1>
+    <p>Effettua il login o registrati per iniziare a giocare.</p>
+    <div class="mt-4">
+      <a routerLink="/login" class="btn btn-success me-2">Login</a>
+      <a routerLink="/register" class="btn btn-primary">Registrati</a>
     </div>
-
-  </div>
-
+  </ng-template>
 </div>

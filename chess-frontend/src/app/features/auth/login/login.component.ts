@@ -31,7 +31,7 @@ export class LoginComponent {
      this.credentials
     ).subscribe({
       next: (token) => {
-       this.authService.saveToken(token);
+      //  this.authService.saveToken(token);
          this.router.navigate(['/'])
         // this.router.navigate(['/tornei']);
       },
