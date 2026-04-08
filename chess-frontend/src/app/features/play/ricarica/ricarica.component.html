@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h3>Ricarica credito</h3>
+
+  <form (ngSubmit)="ricarica()">
+    <input type="number" [(ngModel)]="importo" name="importo"
+           class="form-control mb-3" placeholder="Importo" required>
+
+    <button class="btn btn-success">Ricarica</button>
+  </form>
+
+  <div *ngIf="messaggio" class="alert alert-success mt-3">
+    {{ messaggio }}
+  </div>
+
+  <div *ngIf="errore" class="alert alert-danger mt-3">
+    {{ errore }}
+  </div>
+</div>

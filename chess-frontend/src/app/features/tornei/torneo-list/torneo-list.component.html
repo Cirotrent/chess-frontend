@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <h2>Tornei</h2>
+
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Data</th>
+        <th>Stato</th>
+        <th>Elo minimo</th>
+        <th>Max giocatori</th>
+        <th>Quota di iscrizione</th>
+        <th>N. Partecipanti</th>
+        <th>Organizzatore</th>
+        <th>Azioni</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of tornei">
+        <td>{{ t.denominazione }}</td>
+        <td>{{ t.dataCreazione }}</td>
+        <td>{{ t.stato }}</td>
+        <td>{{ t.eloMinimo }}</td>
+        <td>{{ t.maxGiocatori }}</td>
+        <td>{{ t.quotaIscrizione }}</td>
+        <td>{{ t.partecipanti?.length }}</td>
+        <td>{{ t.utenteCreazione?.username }}</td>
+        <td>
+
+          <!-- <button class="btn btn-sm btn-info me-2"
+                  [routerLink]="['/tornei', t.id]">
+            Dettaglio
+          </button> -->
+
+          <!-- SOLO ORGANIZER -->
+          <button class="btn btn-sm btn-warning me-2"
+                  *ngIf="authService.hasRole('ORGANIZER') && t.partecipanti?.length === 0"
+                  [routerLink]="['/tornei/modifica', t.id]">
+            Modifica
+          </button>
+
+          <button class="btn btn-sm btn-danger"
+                  *ngIf="authService.hasRole('ORGANIZER') && t.partecipanti?.length === 0"
+                  (click)="delete(t.id)">
+            Elimina
+          </button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

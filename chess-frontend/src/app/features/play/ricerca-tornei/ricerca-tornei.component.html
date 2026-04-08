@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <h3>Tornei disponibili</h3>
+
+  <!-- <input [(ngModel)]="denominazione"
+         class="form-control mb-3"
+         placeholder="Nome torneo">
+
+  <button class="btn btn-primary mb-3" (click)="cerca()">Cerca</button> -->
+
+  <div *ngFor="let t of tornei" class="card mb-2 p-3">
+    <h5>{{ t.denominazione }}</h5>
+    <p>ELO minimo: {{ t.eloMinimo }}</p>
+    <p>Quota: {{ t.quotaIscrizione }}</p>
+
+    <button class="btn btn-success" (click)="iscriviti(t.id)">
+      Iscriviti
+    </button>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="container mt-4">
+  <h3>Torneo attivo</h3>
+
+  <div *ngIf="!torneo" class="alert alert-info">
+    Nessun torneo attivo
+  </div>
+
+  <div *ngIf="torneo" class="card p-3">
+    <h4>{{ torneo.denominazione }}</h4>
+
+    <button class="btn btn-warning me-2" (click)="gioca()">
+      Gioca partita
+    </button>
+
+    <button class="btn btn-danger" (click)="abbandona()">
+      Abbandona torneo
+    </button>
+  </div>
+
+  <div *ngIf="messaggio" class="alert alert-info mt-3">
+    {{ messaggio }}
+  </div>
+</div>

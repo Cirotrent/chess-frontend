@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,11 @@ export class PlayService {
   }
   getTornei() {
     return this.http.get<any[]>(`${this.baseUrl}/lista-tornei`);
+  }
+   ultimoTorneo(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/ultimo-torneo`);
+  }
+  abbandona(): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/abbandona`);
   }
 }

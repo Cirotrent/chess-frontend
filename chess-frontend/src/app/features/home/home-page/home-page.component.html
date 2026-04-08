@@ -1,10 +1,10 @@
 <div class="container mt-5 text-center">
   <div *ngIf="authService.isLoggedIn(); else guest">
     <h1>Benvenuto, {{ authService.getUsername() }}!</h1>
-    <p>Visualizza i tornei e le tue partite qui sotto.</p>
-    <div class="mt-4">
+    <p>Visualizza i tornei e le tue partite dal menu.</p>
+    <!-- <div class="mt-4">
       <a routerLink="/play/lista-tornei" class="btn btn-primary">Vai ai tornei</a>
-    </div>
+    </div> -->
   </div>
 
   <ng-template #guest>

@@ -1,0 +1,105 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow">
+        <div class="card-body">
+
+          <h3 class="text-center mb-4">
+            {{ isEdit ? 'Modifica Torneo' : 'Nuovo Torneo' }}
+          </h3>
+
+          <form (ngSubmit)="onSubmit()" #form="ngForm">
+
+            <!-- Denominazione -->
+            <div class="mb-3">
+              <label class="form-label">Denominazione</label>
+              <input type="text"
+                     name="denominazione"
+                     class="form-control"
+                     [(ngModel)]="torneo.denominazione"
+                     required
+                     #den="ngModel"
+                     [class.is-invalid]="den.invalid && den.touched">
+              <div class="invalid-feedback">
+                Campo obbligatorio
+              </div>
+            </div>
+
+            <!-- Elo minimo -->
+            <div class="mb-3">
+              <label class="form-label">Elo minimo</label>
+              <input type="number"
+                     name="eloMinimo"
+                     class="form-control"
+                     [(ngModel)]="torneo.eloMinimo"
+                     required
+                     min="0"
+                     #elo="ngModel"
+                     [class.is-invalid]="elo.invalid && elo.touched">
+              <div class="invalid-feedback">
+                Inserisci un valore valido
+              </div>
+            </div>
+
+            <!-- Quota -->
+            <div class="mb-3">
+              <label class="form-label">Quota iscrizione (€)</label>
+              <input type="number"
+                     name="quotaIscrizione"
+                     class="form-control"
+                     [(ngModel)]="torneo.quotaIscrizione"
+                     required
+                     min="0"
+                     step="0.01"
+                     #quota="ngModel"
+                     [class.is-invalid]="quota.invalid && quota.touched">
+              <div class="invalid-feedback">
+                Inserisci una quota valida
+              </div>
+            </div>
+
+            <!-- Max giocatori -->
+            <div class="mb-3">
+              <label class="form-label">Max giocatori</label>
+              <input type="number"
+                     name="maxGiocatori"
+                     class="form-control"
+                     [(ngModel)]="torneo.maxGiocatori"
+                     required
+                     min="2"
+                     #max="ngModel"
+                     [class.is-invalid]="max.invalid && max.touched">
+              <div class="invalid-feedback">
+                Minimo 2 giocatori
+              </div>
+            </div>
+
+            <!-- INFO NON MODIFICABILI -->
+            <div *ngIf="isEdit" class="mb-3 text-muted small">
+              <p><strong>Data creazione:</strong> {{ torneo.dataCreazione }}</p>
+              <p><strong>Stato:</strong> {{ torneo.stato }}</p>
+            </div>
+
+            <!-- Bottone -->
+            <div class="d-grid">
+              <button type="submit"
+                      class="btn btn-primary"
+                      [disabled]="form.invalid">
+                {{ isEdit ? 'Salva modifiche' : 'Crea torneo' }}
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Error -->
+          <div *ngIf="error" class="alert alert-danger mt-3">
+            {{ error }}
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

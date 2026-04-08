@@ -4,9 +4,61 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+     <div class="ms-auto text-white"  *ngIf="authService.isLoggedIn() && authService.hasRole('PLAYER')">
+      <!-- 💰  {{ authService.getMontePremi() }}  € -->
+      💰 {{ user.montePremi }}  €
+      &nbsp; | &nbsp;
+      <!-- ♟️ ELO:  {{ authService.getEloRating() }} -->
+      ♟️ ELO: {{ user.eloRating }}
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+       
+        <li class="nav-item dropdown" *ngIf="authService.hasRole('PLAYER')">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            Area Player</a>
+          <ul class="dropdown-menu">
+
+            <li>
+              <a class="dropdown-item" routerLink="/play/ricarica">
+                💰 Ricarica credito
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" routerLink="/play/ricerca">
+                🔍 Cerca tornei
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/play/torneo-attivo">
+                ♟️ Torneo attivo
+              </a>
+            </li>
+
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="authService.hasAnyRole(['ADMIN','ORGANIZER'])">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            Tornei
+          </a>
+          <ul class="dropdown-menu">
+
+            <li>
+              <a class="dropdown-item" routerLink="/tornei_org">
+                Lista tornei
+              </a>
+            </li>
+
+            <li *ngIf="authService.hasRole('ORGANIZER')">
+              <a class="dropdown-item" routerLink="/tornei/nuovo">
+                Crea torneo
+              </a>
+            </li>
+
+          </ul>
+        </li>
 
         <!-- Mostra se utente NON loggato -->
         <li class="nav-item" *ngIf="!authService.isLoggedIn()">
@@ -22,8 +74,8 @@
             {{ authService.getUsername() }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" routerLink="/profile">Profilo</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <!-- <li><a class="dropdown-item" routerLink="/profile">Profilo</a></li> -->
+            <!-- <li><hr class="dropdown-divider"></li> -->
             <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
           </ul>
         </li>

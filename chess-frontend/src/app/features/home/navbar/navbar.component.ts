@@ -10,7 +10,13 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
-  constructor(public authService: AuthService, private router: Router) {}
+  
+  user: any;
+  constructor(public authService: AuthService, private router: Router) {
+    this.authService.user$.subscribe(u => this.user = u);
+  }
+
+
 
   logout() {
     this.authService.logout();
